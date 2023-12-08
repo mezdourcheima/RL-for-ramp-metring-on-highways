@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<edges>
+    <edge id="in" from="n1" to="n2" type="3L45"/>
+    <edge id="2to3" from="n2" to="n3" type="3L15"/>
+    <edge id="3to4" from="n3" to="n4" type="3L30"/>
+    <edge id="out" from="n4" to="n5" type="3L30"/>
+    <edge id="intramp" from="n6" to="n2" type="3L50"/>
+
+</edges>

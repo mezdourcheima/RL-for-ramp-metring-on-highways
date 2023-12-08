@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2023-12-08 13:57:32 by Eclipse SUMO sumo Version 1.18.0
+-->
+
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+
+    <input>
+        <net-file value="mynet.net.xml"/>
+        <route-files value="mynet.rou.xml"/>
+    </input>
+
+    <time>
+        <begin value="0"/>
+        <end value="2000"/> 
+    </time>
+
+<!-- 
+    <traci_server>
+        <remote-port value="49798"/>
+    </traci_server>
+    
+-->
+    
+
+</configuration>
