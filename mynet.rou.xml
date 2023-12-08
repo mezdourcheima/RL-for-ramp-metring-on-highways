@@ -1,32 +1,47 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <routes>
-
     <vType accel="1.0" id="Car" decel="5.0" sigma="0.0" length="2.0" maxSpeed="100.0" />
     <vType accel="1.0" id="Bus" decel="5.0" sigma="0.0" length="12.0" maxSpeed="1.0" />
 
     <!-- Route 0 -->
     <route id="route0" edges="in 2to3 3to4"/>
-    <vehicle id="veh0" type="Bus" route="route0" depart="0" color="1,1,0" departLane="0"/>
-    <vehicle id="veh1" type="Car" route="route0" depart="10" color="1,1,0" departLane="0"/>
-    <vehicle id="veh2" type="Car" route="route0" depart="20" color="1,1,0" departLane="0"/>
-    <vehicle id="veh3" type="Bus" route="route0" depart="30" color="1,1,0" departLane="1"/>
-    <vehicle id="veh4" type="Car" route="route0" depart="40" color="1,1,0" departLane="1"/>
-    <vehicle id="veh5" type="Car" route="route0" depart="50" color="1,1,0" departLane="1"/>
-
     <!-- Route 1 -->
     <route id="route1" edges="in 2to3 3to4"/>
-    <vehicle id="veh9" type="Car" route="route1" depart="60" color="1,1,0" departLane="2"/>
-    <vehicle id="veh10" type="Car" route="route1" depart="70" color="1,1,0" departLane="2"/>
-    <vehicle id="veh11" type="Car" route="route1" depart="80" color="1,1,0" departLane="2"/>
-    <vehicle id="veh6" type="Car" route="route1" depart="90" color="1,1,0" departLane="2"/>
-    <vehicle id="veh7" type="Car" route="route1" depart="100" color="1,1,0" departLane="2"/>
-    <vehicle id="veh8" type="Car" route="route1" depart="110" color="1,1,0" departLane="2"/>
-
+    <!-- Route 2 -->
     <route id="route2" edges="intramp 2to3"/>
-    <vehicle id="veh12" type="Car" route="route2" depart="120" color="1,1,0" departLane="0"/>
-    <vehicle id="veh13" type="Car" route="route2" depart="130" color="1,1,0" departLane="0"/>
-    <vehicle id="veh14" type="Bus" route="route2" depart="140" color="1,1,0" departLane="0"/>
-    <vehicle id="veh15" type="Car" route="route2" depart="150" color="1,1,0" departLane="0"/>
-    <!-- Add more vehicles as needed -->
 
+    <!-- Function to generate vehicles -->
+    <route id="generateVehicles">
+        <vehicle id="$ID" type="$TYPE" route="$ROUTE" depart="$DEPART" color="1,1,0" departLane="best"/>
+    </route>
+
+    <!-- Generate vehicles for route0 -->
+    <for var="i" from="0" to="99" step="1">
+        <include route="generateVehicles">
+            <param key="ID" value="veh${i}"/>
+            <param key="TYPE" value="Car"/>
+            <param key="ROUTE" value="route0"/>
+            <param key="DEPART" value="${i}"/>
+        </include>
+    </for>
+
+    <!-- Generate vehicles for route1 -->
+    <for var="i" from="100" to="149" step="1">
+        <include route="generateVehicles">
+            <param key="ID" value="veh${i}"/>
+            <param key="TYPE" value="Car"/>
+            <param key="ROUTE" value="route1"/>
+            <param key="DEPART" value="${i}"/>
+        </include>
+    </for>
+
+    <!-- Generate vehicles for route2 -->
+    <for var="i" from="200" to="249" step="1">
+        <include route="generateVehicles">
+            <param key="ID" value="veh${i}"/>
+            <param key="TYPE" value="Bus"/>
+            <param key="ROUTE" value="route2"/>
+            <param key="DEPART" value="${i}"/>
+        </include>
+    </for>
 </routes>
