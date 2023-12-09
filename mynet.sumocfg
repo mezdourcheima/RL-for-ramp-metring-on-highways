@@ -15,12 +15,18 @@
         <end value="2000"/> 
     </time>
 
-<!-- 
+
+
     <traci_server>
-        <remote-port value="49798"/>
+        <remote-port value="0"/>
     </traci_server>
     
--->
+    <gui>
+        <gui-settings>
+            <scale>2</scale>
+        </gui-settings>
+        <!-- Other GUI settings -->
+    </gui>
     
 
 </configuration>

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2023-12-08 16:44:10 by Eclipse SUMO netconvert Version 1.18.0
+<!-- generated on 2023-12-08 21:36:40 by Eclipse SUMO netconvert Version 1.18.0
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
@@ -20,23 +20,23 @@
 
     <location netOffset="500.00,200.00" convBoundary="0.00,0.00,650.00,400.00" origBoundary="-500.00,-200.00,750.00,200.00" projParameter="!"/>
 
-    <type id="3L15" priority="3" numLanes="3" speed="15.00"/>
+    <type id="3L15" priority="3" numLanes="3" speed="30.00"/>
     <type id="3L30" priority="2" numLanes="3" speed="30.00"/>
-    <type id="3L45" priority="3" numLanes="3" speed="35.00"/>
-    <type id="3L50" priority="2" numLanes="1" speed="15.00"/>
+    <type id="3L45" priority="3" numLanes="3" speed="30.00"/>
+    <type id="3L50" priority="2" numLanes="1" speed="30.00"/>
 
     <edge id=":n2_0" function="internal">
         <lane id=":n2_0_0" index="0" speed="10.58" length="8.07" shape="237.83,188.21 239.62,189.83 240.91,191.02 242.35,191.75 244.62,192.00"/>
     </edge>
     <edge id=":n2_1" function="internal">
-        <lane id=":n2_1_0" index="0" speed="25.00" length="8.12" shape="236.50,192.00 244.62,192.00"/>
-        <lane id=":n2_1_1" index="1" speed="25.00" length="8.12" shape="236.50,195.20 244.62,195.20"/>
-        <lane id=":n2_1_2" index="2" speed="25.00" length="8.12" shape="236.50,198.40 244.62,198.40"/>
+        <lane id=":n2_1_0" index="0" speed="30.00" length="8.12" shape="236.50,192.00 244.62,192.00"/>
+        <lane id=":n2_1_1" index="1" speed="30.00" length="8.12" shape="236.50,195.20 244.62,195.20"/>
+        <lane id=":n2_1_2" index="2" speed="30.00" length="8.12" shape="236.50,198.40 244.62,198.40"/>
     </edge>
     <edge id=":n3_0" function="internal">
-        <lane id=":n3_0_0" index="0" speed="22.50" length="0.10" shape="350.00,192.00 350.00,192.00"/>
-        <lane id=":n3_0_1" index="1" speed="22.50" length="0.10" shape="350.00,195.20 350.00,195.20"/>
-        <lane id=":n3_0_2" index="2" speed="22.50" length="0.10" shape="350.00,198.40 350.00,198.40"/>
+        <lane id=":n3_0_0" index="0" speed="30.00" length="0.10" shape="350.00,192.00 350.00,192.00"/>
+        <lane id=":n3_0_1" index="1" speed="30.00" length="0.10" shape="350.00,195.20 350.00,195.20"/>
+        <lane id=":n3_0_2" index="2" speed="30.00" length="0.10" shape="350.00,198.40 350.00,198.40"/>
     </edge>
     <edge id=":n4_0" function="internal">
         <lane id=":n4_0_0" index="0" speed="8.11" length="7.43" shape="500.00,192.00 501.90,192.20 503.60,192.80 505.10,193.80 506.40,195.20"/>
@@ -45,9 +45,9 @@
     </edge>
 
     <edge id="2to3" from="n2" to="n3" priority="3" type="3L15">
-        <lane id="2to3_0" index="0" speed="15.00" length="105.38" shape="244.62,192.00 350.00,192.00"/>
-        <lane id="2to3_1" index="1" speed="15.00" length="105.38" shape="244.62,195.20 350.00,195.20"/>
-        <lane id="2to3_2" index="2" speed="15.00" length="105.38" shape="244.62,198.40 350.00,198.40"/>
+        <lane id="2to3_0" index="0" speed="30.00" length="105.38" shape="244.62,192.00 350.00,192.00"/>
+        <lane id="2to3_1" index="1" speed="30.00" length="105.38" shape="244.62,195.20 350.00,195.20"/>
+        <lane id="2to3_2" index="2" speed="30.00" length="105.38" shape="244.62,198.40 350.00,198.40"/>
     </edge>
     <edge id="3to4" from="n3" to="n4" priority="2" type="3L30">
         <lane id="3to4_0" index="0" speed="30.00" length="150.00" shape="350.00,192.00 500.00,192.00"/>
@@ -55,12 +55,12 @@
         <lane id="3to4_2" index="2" speed="30.00" length="150.00" shape="350.00,198.40 500.00,198.40"/>
     </edge>
     <edge id="in" from="n1" to="n2" priority="3" type="3L45">
-        <lane id="in_0" index="0" speed="35.00" length="236.50" shape="0.00,192.00 236.50,192.00"/>
-        <lane id="in_1" index="1" speed="35.00" length="236.50" shape="0.00,195.20 236.50,195.20"/>
-        <lane id="in_2" index="2" speed="35.00" length="236.50" shape="0.00,198.40 236.50,198.40"/>
+        <lane id="in_0" index="0" speed="30.00" length="236.50" shape="0.00,192.00 236.50,192.00"/>
+        <lane id="in_1" index="1" speed="30.00" length="236.50" shape="0.00,195.20 236.50,195.20"/>
+        <lane id="in_2" index="2" speed="30.00" length="236.50" shape="0.00,198.40 236.50,198.40"/>
     </edge>
     <edge id="intramp" from="n6" to="n2" priority="2" type="3L50">
-        <lane id="intramp_0" index="0" speed="15.00" length="303.29" shape="1.00,-1.25 237.83,188.21"/>
+        <lane id="intramp_0" index="0" speed="30.00" length="303.29" shape="1.00,-1.25 237.83,188.21"/>
     </edge>
     <edge id="out" from="n4" to="n5" priority="2" type="3L30">
         <lane id="out_0" index="0" speed="30.00" length="250.00" shape="506.40,195.20 656.40,395.20"/>
@@ -69,14 +69,14 @@
     </edge>
 
     <tlLogic id="n2" type="static" programID="0" offset="0">
-        <phase duration="38" state="Grrr"/>
-        <phase duration="7"  state="yrrr"/>
-        <phase duration="38" state="rGGG"/>
-        <phase duration="7"  state="ryyy"/>
+        <phase duration="39" state="Grrr"/>
+        <phase duration="6"  state="yrrr"/>
+        <phase duration="39" state="rGGG"/>
+        <phase duration="6"  state="ryyy"/>
     </tlLogic>
     <tlLogic id="n3" type="static" programID="0" offset="0">
-        <phase duration="82" state="GGG"/>
-        <phase duration="3"  state="yyy"/>
+        <phase duration="79" state="GGG"/>
+        <phase duration="6"  state="yyy"/>
         <phase duration="5"  state="rrr"/>
     </tlLogic>
 

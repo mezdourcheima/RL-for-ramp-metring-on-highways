@@ -1,15 +1,11 @@
 import traci
 import numpy as np
 import tensorflow as tf
-import pickle
 import time
-import subprocess
-
-
 
 # Constants
 NUM_PHASES = 4  # Number of traffic light phases
-STATE_DIM = 4  # Number of state variables (adjust based on your scenario)
+STATE_DIM = 4   # Number of state variables (adjust based on your scenario)
 ACTION_DIM = NUM_PHASES  # Number of possible actions (traffic light phases)
 GAMMA = 0.9
 EPSILON = 0.1
@@ -17,31 +13,30 @@ ALPHA = 0.001
 MEMORY_CAPACITY = 10000
 BATCH_SIZE = 32
 NUM_EPISODES = 100
+TARGET_UPDATE_FREQ = 10  # Update target network every TARGET_UPDATE_FREQ episodes
 
-# Q-network
-model = tf.keras.Sequential(
-    [
-        tf.keras.layers.Dense(32, activation="relu", input_shape=(STATE_DIM,)),
-        tf.keras.layers.Dense(ACTION_DIM, activation="linear"),
-    ]
-)
-model.compile(optimizer=tf.optimizers.Adam(learning_rate=ALPHA), loss="mse")
+# Q-network and target Q-network
+model = tf.keras.Sequential([
+    tf.keras.layers.Dense(32, activation='relu', input_shape=(STATE_DIM,)),
+    tf.keras.layers.Dense(ACTION_DIM, activation='linear')
+])
+model.compile(optimizer=tf.optimizers.Adam(learning_rate=ALPHA), loss='mse')
+
+target_model = tf.keras.models.clone_model(model)
+target_model.set_weights(model.get_weights())
 
 # Replay memory
 memory = []
 
-
 def get_state():
     # Implement logic to get the current state from SUMO
-    # Example: [queue_length_main_road, queue_length_ramp, average_speed_main_road, average_speed_ramp]
     state = [
         traci.edge.getLastStepHaltingNumber("in"),
         traci.edge.getLastStepHaltingNumber("intramp"),
         traci.edge.getLastStepMeanSpeed("in"),
-        traci.edge.getLastStepMeanSpeed("intramp"),
+        traci.edge.getLastStepMeanSpeed("intramp")
     ]
     return np.array(state)
-
 
 def choose_action(state):
     # Epsilon-greedy policy
@@ -51,14 +46,11 @@ def choose_action(state):
         q_values = model.predict(state.reshape(1, -1))[0]
         return np.argmax(q_values)
 
-
 def update_q_network():
     if len(memory) < BATCH_SIZE:
         return
 
-    minibatch = np.array(memory)[
-        np.random.choice(len(memory), BATCH_SIZE, replace=False)
-    ]
+    minibatch = np.array(memory)[np.random.choice(len(memory), BATCH_SIZE, replace=False)]
 
     states = np.vstack(minibatch[:, 0])
     actions = minibatch[:, 1].astype(int)
@@ -67,7 +59,7 @@ def update_q_network():
     terminals = minibatch[:, 4]
 
     q_values = model.predict(states)
-    next_q_values = model.predict(next_states)
+    next_q_values = target_model.predict(next_states)
 
     for i in range(BATCH_SIZE):
         if terminals[i]:
@@ -76,7 +68,6 @@ def update_q_network():
             q_values[i, actions[i]] = rewards[i] + GAMMA * np.max(next_q_values[i])
 
     model.fit(states, q_values, epochs=1, verbose=0)
-
 
 def calculate_reward(state, action, next_state):
     # Custom reward function
@@ -91,19 +82,12 @@ def calculate_reward(state, action, next_state):
 
     return reward
 
-
 def check_if_done():
     # Termination condition: End the episode after a certain number of simulation steps
     return traci.simulation.getTime() > 1000
 
-
-# Check for existing connections
-# Close existing connections
-# traci.close()
-
 # Connect to SUMO
 traci.start(["sumo", "-c", "/Users/cheimamezdour/Projects/RLOC-SUMO/mynet.sumocfg"])
-
 
 # Training loop
 for episode in range(NUM_EPISODES):
@@ -111,19 +95,13 @@ for episode in range(NUM_EPISODES):
     total_reward = 0
 
     while traci.simulation.getMinExpectedNumber() > 0:
-        # Choose action using epsilon-greedy policy during training
-        if np.random.rand() < EPSILON:
-            action = np.random.randint(ACTION_DIM)
-        else:
-            q_values = model.predict(state.reshape(1, -1))[0]
-            action = np.argmax(q_values)
         # Choose action using epsilon-greedy policy
         action = choose_action(state)
 
         # Apply the chosen action to the traffic light in SUMO
         traci.trafficlight.setPhase("n2", action)
 
-        # Step the simulation (allowing the change to take effect)
+        # Step the simulation
         traci.simulationStep()
 
         # Obtain the next state
@@ -135,9 +113,6 @@ for episode in range(NUM_EPISODES):
         # Check if the simulation is done
         done = check_if_done()
 
-        # Log relevant information
-        print(f"Step: {traci.simulation.getTime()}, Action: {action}, Reward: {reward}")
-
         # Store the transition in the replay memory
         memory.append((state, action, reward, next_state, done))
 
@@ -148,14 +123,18 @@ for episode in range(NUM_EPISODES):
         state = next_state
         total_reward += reward
 
-        # If the episode is done, break out of the simulation loop
+        # Check if the episode is done
         if done:
             break
 
-        model.save("trained_traffic_light_model_ql.h5")
+        model.save("trained_traffic_light_model_dql.h5")
 
 
     print(f"Episode {episode + 1}, Total Reward: {total_reward}")
+
+    # Update target network every TARGET_UPDATE_FREQ episodes
+    if episode % TARGET_UPDATE_FREQ == 0:
+        target_model.set_weights(model.get_weights())
 
 # Close connection to SUMO
 traci.close()
