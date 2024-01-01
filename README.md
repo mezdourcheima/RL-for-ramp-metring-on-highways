@@ -14,3 +14,15 @@ The goal of this project is to utilize Q-learning and Deep Q-learning algorithms
     - Q-Learning
     - Deep Q-Learning
 
+# How to run
+
+To visualize the simulation, run the following command in the terminal:
+```python visualize_dql.py``` or ```python visualize_ql.py``` 
+
+To train the model, run the following command in the terminal:
+```python train_dql.py``` or ```python train_ql.py```
+
+To test the model, run the following command in the terminal:
+```python test_dql.py``` or ```python test_ql.py```
+
+
